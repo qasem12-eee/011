@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بقالة السفير | الجودة في كل طلب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a531b;
+            --secondary-color: #2e7d32;
+            --accent-color: #ffc107;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f9fbf9;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); scroll-behavior: smooth; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* الهيدر والشعار */
+        header { 
+            background: rgba(255, 255, 255, 0.97); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 25px rgba(0,0,0,0.08); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            padding: 12px 0;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            text-decoration: none; 
+            cursor: pointer; 
+            user-select: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            transition: var(--transition);
+            position: relative;
+        }
+        .logo:hover { background: rgba(26, 83, 27, 0.05); }
+        .logo-icon { 
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+            color: white; 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 26px; 
+            box-shadow: 0 4px 15px rgba(26, 83, 27, 0.2);
+        }
+        .logo-text h1 { font-size: 24px; color: var(--primary-color); margin-bottom: 4px; font-weight: 800; }
+        .logo-text span { font-size: 12px; color: var(--text-light); letter-spacing: 0.8px; font-weight: 500; }
+        
+        /* مؤشر النقر المزدوج */
+        .double-click-hint {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: #000;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .logo:hover .double-click-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* الهيرو سيكشن */
+        .hero-card { 
+            position: relative; 
+            height: 550px; 
+            border-radius: 25px; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            background: linear-gradient(135deg, #1a531b 0%, #2e7d32 100%);
+            margin-top: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .hero-img { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.4;
+            filter: brightness(0.7);
+        }
+        .hero-overlay { 
+            position: relative; 
+            z-index: 2; 
+            padding: 0 70px; 
+            max-width: 750px; 
+            color: white; 
+        }
+        .hero-overlay h2 { 
+            font-size: 48px; 
+            margin-bottom: 20px; 
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero-overlay p { 
+            font-size: 20px; 
+            margin-bottom: 30px; 
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* عناوين الأقسام */
+        .section-header { 
+            text-align: center; 
+            margin: 70px 0 45px; 
+            position: relative;
+        }
+        .section-header h2 { 
+            font-size: 36px; 
+            color: var(--primary-color); 
+            position: relative; 
+            display: inline-block; 
+            padding-bottom: 20px;
+            font-weight: 800;
+        }
+        .section-header h2::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 80px; 
+            height: 5px; 
+            background: var(--accent-color); 
+            border-radius: 3px;
+        }
+
+        /* شبكة العروض */
+        .ramadan-offers-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px; 
+            margin: 30px 0 60px;
+        }
+        
+        .card { 
+            background: var(--white); 
+            border-radius: 20px; 
+            padding: 20px; 
+            transition: var(--transition); 
+            border: 1px solid rgba(0,0,0,0.08); 
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        .card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .card-img-wrapper { 
+            height: 180px; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .card-img-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-img-wrapper img { 
+            transform: scale(1.08); 
+        }
+        .card h4 { 
+            font-size: 16px; 
+            margin: 15px 0 8px; 
+            height: 48px; 
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .card-price { 
+            color: var(--secondary-color); 
+            font-weight: 800; 
+            font-size: 20px; 
+            margin-top: 10px;
+            background: rgba(46, 125, 50, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* قسم الطلبات */
+        .order-section { 
+            background: linear-gradient(135deg, #ffffff 0%, #f9fbf9 100%); 
+            border-radius: 25px; 
+            padding: 60px; 
+            margin: 70px 0; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; 
+            align-items: center; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .form-control { 
+            width: 100%; 
+            padding: 18px 25px; 
+            border: 2px solid #e8f5e9; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            font-size: 16px; 
+            transition: var(--transition);
+            background: #f9fdf9;
+        }
+        .form-control:focus { 
+            border-color: var(--primary-color); 
+            outline: none; 
+            box-shadow: 0 0 0 4px rgba(26, 83, 27, 0.15);
+            background: white;
+        }
+        .btn-whatsapp { 
+            background: linear-gradient(135deg, #25d366, #1da851); 
+            color: white; 
+            width: 100%; 
+            padding: 20px; 
+            border: none; 
+            border-radius: 15px; 
+            font-size: 19px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            transition: var(--transition); 
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-whatsapp:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp:active {
+            transform: translateY(-1px);
+        }
+        
+        /* زر التحكم العائم في أسفل الصفحة */
+        .floating-admin-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 8px 25px rgba(26, 83, 27, 0.4);
+            transition: var(--transition);
+            border: 3px solid white;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-admin-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 12px 35px rgba(26, 83, 27, 0.5);
+        }
+        
+        .floating-admin-btn .tooltip {
+            position: absolute;
+            right: 70px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: var(--transition);
+            pointer-events: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .floating-admin-btn:hover .tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .floating-admin-btn .pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            70% { transform: scale(1.3); opacity: 0; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+        
+        /* ميزات إضافية */
+        .features-box {
+            background: linear-gradient(135deg, rgba(26, 83, 27, 0.05), rgba(255, 193, 7, 0.05));
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 25px;
+            border: 1px solid rgba(26, 83, 27, 0.1);
+        }
+        .features-list { 
+            list-style: none; 
+            padding-right: 0; 
+        }
+        .features-list li { 
+            margin-bottom: 12px; 
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+        .features-list li:last-child { border-bottom: none; }
+        .features-list i { 
+            color: var(--secondary-color); 
+            margin-left: 12px; 
+            font-size: 18px;
+        }
+        
+        /* نافذة التحكم */
+        .admin-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.92); 
+            z-index: 9999; 
+            justify-content: center; 
+            align-items: center; 
+            backdrop-filter: blur(10px); 
+            padding: 25px;
+            animation: modalFadeIn 0.4s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; backdrop-filter: blur(0px); }
+            to { opacity: 1; backdrop-filter: blur(10px); }
+        }
+        
+        .admin-content { 
+            background: linear-gradient(135deg, #ffffff, #f9fbf9); 
+            padding: 35px; 
+            border-radius: 25px; 
+            width: 100%; 
+            max-width: 550px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: contentSlideUp 0.5s ease;
+        }
+        
+        @keyframes contentSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* تصميم محسن لحقول الإدخال */
+        .password-protection { 
+            margin: 20px 0; 
+        }
+        .password-input { 
+            direction: ltr; 
+            text-align: center; 
+            letter-spacing: 3px; 
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* مؤشر التحميل */
+        .loading { 
+            display: flex; 
+            justify-content: center; 
+            padding: 50px; 
+        }
+        .loading-spinner { 
+            width: 50px; 
+            height: 50px; 
+            border: 4px solid rgba(26, 83, 27, 0.1); 
+            border-top: 4px solid var(--primary-color); 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* شبكة الحذف */
+        .delete-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+            gap: 15px; 
+            margin-top: 20px; 
+            max-height: 350px; 
+            overflow-y: auto; 
+            padding: 15px; 
+            border: 1px solid rgba(0,0,0,0.1); 
+            border-radius: 15px;
+            background: rgba(0,0,0,0.02);
+        }
+        .delete-item { 
+            position:relative; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 12px; 
+            overflow:hidden; 
+            background: white;
+            transition: var(--transition);
+        }
+        .delete-item:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.03);
+        }
+        .delete-item img { 
+            width:100%; 
+            height:85px; 
+            object-fit:cover; 
+        }
+        .delete-item-title { 
+            padding:8px 5px; 
+            font-size:12px; 
+            text-align:center; 
+            overflow:hidden; 
+            white-space:nowrap; 
+            text-overflow:ellipsis; 
+            font-weight: 600;
+        }
+        .delete-btn { 
+            position:absolute; 
+            top:5px; 
+            right:5px; 
+            background: linear-gradient(135deg, #ff4757, #ff3838); 
+            color:white; 
+            border:none; 
+            border-radius:50%; 
+            width:26px; 
+            height:26px; 
+            cursor:pointer; 
+            font-size:14px; 
+            display:flex; 
+            align-items:center; 
+            justify-content:center;
+            box-shadow: 0 3px 10px rgba(255, 56, 56, 0.3);
+            transition: var(--transition);
+        }
+        .delete-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 56, 56, 0.4);
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 1100px) { 
+            .order-section { gap: 40px; padding: 50px; } 
+            .hero-overlay { padding: 0 40px; }
+        }
+        @media (max-width: 992px) { 
+            .order-section { 
+                grid-template-columns: 1fr; 
+                padding: 40px; 
+                gap: 40px;
+            } 
+            .hero-card { height: 450px; }
+            .hero-overlay h2 { font-size: 36px; }
+            .hero-overlay p { font-size: 18px; }
+        }
+        @media (max-width: 768px) {
+            .ramadan-offers-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-card { height: 400px; }
+            .hero-overlay { padding: 0 30px; }
+            .hero-overlay h2 { font-size: 30px; }
+            .section-header h2 { font-size: 30px; }
+            .logo { padding: 6px 10px; }
+            .logo-icon { width: 45px; height: 45px; font-size: 22px; }
+            .logo-text h1 { font-size: 20px; }
+            .floating-admin-btn {
+                bottom: 20px;
+                left: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+            }
+        }
+        @media (max-width: 576px) {
+            .hero-card { height: 350px; }
+            .admin-content { padding: 25px; }
+            .ramadan-offers-grid { grid-template-columns: 1fr; gap: 20px; }
+            .hero-overlay { padding: 0 20px; }
+            .hero-overlay h2 { font-size: 26px; }
+            .order-section { padding: 30px 20px; margin: 50px 0; }
+            .double-click-hint { display: none; }
+            .section-header h2 { font-size: 26px; }
+            .floating-admin-btn {
+                bottom: 15px;
+                left: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+            .floating-admin-btn .tooltip {
+                font-size: 12px;
+                padding: 6px 10px;
+                right: 60px;
+            }
+        }
+        
+        /* تأثير النقر المزدوج */
+        .logo-click-effect {
+            animation: clickPulse 0.3s ease;
+        }
+        
+        @keyframes clickPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); box-shadow: 0 0 0 10px rgba(255, 193, 7, 0.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* تصميم الفوتر */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 50px 0 80px;
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-content p {
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+        
+        /* زر إضافي في الفوتر */
+        .footer-admin-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .footer-admin-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(50%) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="container">
+            <div class="nav-wrapper">
+                <!-- الشعار مع خاصية النقر المزدوج -->
+                <div class="logo" id="mainLogo">
+                    <div class="logo-icon"><i class="fas fa-store-alt"></i></div>
+                    <div class="logo-text">
+                        <h1>بقالة السفير</h1>
+                        <span>AL-SAFEER MARKET</span>
+                    </div>
+                    <span class="double-click-hint">انقر مرتين للتحكم</span>
+                </div>
+                
+                <!-- زر الاتصال -->
+                <a href="tel:0550358482" class="btn-whatsapp" style="padding: 12px 25px; font-size: 15px; width: auto; background: var(--primary-color);">
+                    <i class="fas fa-phone-alt"></i> اتصل بنا
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
+        <!-- قسم الهيرو -->
+        <section class="hero">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80" class="hero-img" alt="بقالة السفير - منتجات طازجة">
+                <div class="hero-overlay">
+                    <h2>مقاضي البيت.. <br>توصلك طازجة وبسرعة!</h2>
+                    <p>أجود المنتجات الغذائية نختارها لك بعناية ونوصلها لباب بيتك. طازجة، سريعة، وبأفضل الأسعار.</p>
+                    <a href="#orderForm" class="btn-whatsapp" style="width: 220px; background: linear-gradient(135deg, var(--accent-color), #ffb300); color: #000;">
+                        <i class="fas fa-shopping-basket"></i> اطلب الآن
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- عروض رمضان -->
+        <section class="section-header" id="ramadan-offers">
+            <h2><span style="color: var(--accent-color);">🌙</span> عروض رمضان <span id="offersCount" style="background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 20px; font-size: 24px; margin-right: 10px;">0</span></h2>
+            <p style="color: var(--text-light); margin-top: 15px; font-size: 17px;">أفضل العروض والتخفيضات الخاصة بشهر رمضان المبارك</p>
+        </section>
+        
+        <!-- شبكة العروض -->
+        <div class="ramadan-offers-grid" id="ramadanGrid">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 15px; color: var(--text-light);">جاري تحميل العروض...</p>
+            </div>
+        </div>
+
+        <!-- قسم الطلبات -->
+        <section class="order-section" id="orderForm">
+            <div>
+                <h2 style="color:var(--primary-color); margin-bottom:20px; font-size: 32px;">اطلب عبر واتساب 🛒</h2>
+                <p style="color: var(--text-light); line-height: 1.7; font-size: 17px; margin-bottom: 25px;">أرسل قائمة مشترياتك وسنتكفل بالتوصيل السريع خلال 15 دقيقة في مدينة رماح .</p>
+                
+                <div class="features-box">
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 20px;"><i class="fas fa-star"></i> مميزاتنا:</h4>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> منتجات طازجة يومياً</li>
+                        <li><i class="fas fa-check-circle"></i> أسعار تنافسية وجودة عالية</li>
+                        <li><i class="fas fa-check-circle"></i> دفع آمن عند الاستلام</li>
+                        <li><i class="fas fa-check-circle"></i> توصيل مجاني للطلبات الكبيرة</li>
+                     
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- نموذج الطلب -->
+            <form id="safeerOrderForm">
+                <textarea id="msgDetails" class="form-control" rows="6" placeholder="اكتب طلباتك هنا بالتفصيل (مثلاً: 2 كرتون ماء، 1 كيلو طماطم، 3 علب تونة، 5 كيلو أرز...)" required></textarea>
+                <input type="text" id="msgAddress" class="form-control" placeholder="أدخل عنوان التوصيل بالتفصيل (الحي، الشارع، رقم المنزل)">
+                <input type="text" id="msgPhone" class="form-control" placeholder="رقم الهاتف للتواصل (اختياري)">
+                <input type="text" id="msgName" class="form-control" placeholder="الاسم الكامل (اختياري)">
+                
+                <button type="submit" class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
+                </button>
+                
+                <p style="text-align: center; margin-top: 20px; color: var(--text-light); font-size: 14px; line-height: 1.6;">
+                    <i class="fas fa-info-circle"></i> سيتم فتح تطبيق واتساب تلقائياً لإرسال طلبك مباشرة إلى المتجر
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="font-size: 24px; margin-bottom: 15px;">بقالة السفير</h3>
+            <p>الجودة في كل طلب | التميز في كل منتج</p>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                <i class="fas fa-map-marker-alt"></i> المملكة العربية السعودية | 
+                <i class="fas fa-phone"></i> 0550358482 | 
+                <i class="far fa-
+                     </p>
+                    marker-alt"></i>            <i class="fas fa-
+            <p style="margin-top: 10px; font-size: 12px; opacity: 0.7;">
+                © 2024 بقالة السفير. جميع الحقوق محفوظة.
+            </p>
+            
+            <!-- زر التحكم في الفوتر -->
+            <button class="footer-admin-btn" onclick="openAdminPanel()">
+                <i class="fas fa-cogs"></i> لوحة التحكم
+            </button>
+        </div>
+    </footer>
+
+    <!-- زر التحكم العائم -->
+    <div class="floating-admin-btn" onclick="openAdminPanel()">
+        <div class="pulse"></div>
+        <i class="fas fa-user-shield"></i>
+        <span class="tooltip">فتح لوحة التحكم</span>
+    </div>
+
+    <!-- نافذة التحكم -->
+    <div id="adminPanel" class="admin-modal">
+        <div class="admin-content">
+            <h2 style="text-align:center; color:var(--primary-color); margin-bottom: 15px; font-size: 28px;">
+                <i class="fas fa-user-shield"></i> لوحة تحكم بقالة السفير
+            </h2>
+            <p style="text-align:center; color: var(--text-light); margin-bottom: 25px; font-size: 15px; line-height: 1.5;">
+                لوحة إدارة كاملة للتحكم في عروض رمضان وإضافة المنتجات الجديدة وحذف العروض القديمة
+            </p>
+            <hr style="margin:20px 0; border: none; border-top: 2px dashed rgba(0,0,0,0.1);">
+            
+            <!-- قسم كلمة المرور -->
+            <div id="passwordSection" class="password-protection">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 18px;">
+                    <i class="fas fa-lock"></i> التحقق من الهوية
+                </h3>
+                <p style="color: var(--text-light); margin-bottom: 15px; font-size: 14px;">
+                    أدخل كلمة المرور للوصول إلى لوحة التحكم:
+                </p>
+                
+                <input type="password" id="adminPassword" class="form-control password-input" placeholder="••••••••" autocomplete="off">
+                
+                <button onclick="checkPassword()" class="btn-whatsapp" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); margin-top: 20px;">
+                    <i class="fas fa-sign-in-alt"></i> دخول إلى لوحة التحكم
+                </button>
+                
+                <div style="text-align:center; margin-top: 20px; padding: 15px; background: rgba(255, 193, 7, 0.1); border-radius: 10px;">
+                    <p style="color: var(--text-dark); font-size: 13px; margin-bottom: 5px;">
+                        <i class="fas fa-key"></i> كلمة المرور الافتراضية:
+                    </p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 16px; font-family: monospace;">
+                        admin123
+                    </p>
+                    <p style="color: var(--text-light); font-size: 12px; margin-top: 8px;">
+                        يمكنك تغييرها في الكود: const ADMIN_PASSWORD
+                    </p>
+                </div>
+            </div>
+            
+            <!-- لوحة التحكم الفعلية -->
+            <div id="adminControls" style="display: none;">
+                <!-- إضافة عرض جديد -->
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 22px;">
+                    <i class="fas fa-plus-circle"></i> إضافة عرض جديد
+                </h3>
+                
+                <div style="background: rgba(26, 83, 27, 0.05); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                        <i class="fas fa-image"></i> صورة المنتج:
+                    </label>
+                    <input type="file" id="imageFile" accept="image/*" class="form-control" style="padding: 15px; border: 2px dashed rgba(26, 83, 27, 0.3);">
+                    <p style="color: var(--text-light); font-size: 13px; margin-top: 8px;">
+                        يفضل استخدام صور واضحة وجذابة للمنتج
+                    </p>
+                </div>
+                
+                <label style="display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                    <i class="fas fa-tag"></i> اسم المنتج:
+                </label>
+                <input type="text" id="dbTitle" placeholder="مثال: فيمتو مشكل 710 مل" class="form-control">
+                
+                <label style="display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary-color); margin-top: 20px;">
+                    <i class="fas fa-money-bill-wave"></i> السعر:
+                </label>
+                <input type="text" id="dbPrice" placeholder="مثال: 15 ريال | 12 ريال (عرض خاص)" class="form-control">
+
+                <!-- حالة الرفع -->
+                <div id="uploadStatus" style="text-align:center; margin:25px 0; padding: 20px; border-radius: 12px;"></div>
+                
+                <!-- زر الرفع -->
+                <button id="uploadBtn" onclick="handleAdminUpload()" class="btn-whatsapp" style="background: linear-gradient(135deg, var(--secondary-color), #4caf50);">
+                    <i class="fas fa-cloud-upload-alt"></i> نشر العرض الآن
+                </button>
+                
+                <hr style="margin:30px 0; border: none; border-top: 2px dashed rgba(0,0,0,0.1);">
+                
+                <!-- إدارة العروض -->
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 22px;">
+                    <i class="fas fa-tasks"></i> إدارة العروض الحالية
+                    <span id="offersCountAdmin" style="background: var(--accent-color); color: #000; padding: 3px 10px; border-radius: 15px; font-size: 14px; margin-right: 10px;">0</span>
+                </h3>
+                
+                <div id="deleteManager" class="delete-grid">
+                    <div style="text-align:center; padding:30px; color: var(--text-light); grid-column: 1/-1;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 15px;"></i>
+                        <p>جاري تحميل العروض...</p>
+                    </div>
+                </div>
+                
+                <!-- أزرار التحكم -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px;">
+                    <button onclick="closeAdminPanel()" style="border: 2px solid #ddd; background: white; color: #333; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: var(--transition);">
+                        <i class="fas fa-times"></i> إغلاق اللوحة
+                    </button>
+                    <button onclick="refreshAdminData()" style="background: linear-gradient(135deg, #2196f3, #0d8bf2); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: var(--transition);">
+                        <i class="fas fa-sync-alt"></i> تحديث البيانات
+                    </button>
+                </div>
+                
+                <!-- معلومات النظام -->
+                <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px; font-size: 16px;">
+                        <i class="fas fa-info-circle"></i> معلومات النظام:
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px;">
+                        <div><strong>الحالة:</strong> <span id="sysStatus" style="color: green;">✅ نشط</span></div>
+                        <div><strong>التاريخ:</strong> <span id="sysDate">--</span></div>
+                        <div><strong>العروض:</strong> <span id="sysOffers">0</span></div>
+                        <div><strong>الإصدار:</strong> 2.1.0</div>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 12px; color: var(--text-light); text-align: center;">
+                        طرق فتح لوحة التحكم: 1) النقر المزدوج على الشعار 2) الزر العائم 3) الزر في الفوتر
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مكتبة Supabase -->
+
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // ============ إعداد Supabase ============
+
+  const SUPABASE_URL = "https://itmlofbytmvcthfrcbep.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bWxvZmJ5dG12Y3RoZnJjYmVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4MDcxNjAsImV4cCI6MjA4NTM4MzE2MH0.RG7xYKN0ld3wN8hQznjqLHBXLohlQDTIYX9nLgU00GU";
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+</script>
+    <script>
+  const ADMIN_PASSWORD = 'admin123';
+
+  let isAdminAuthenticated = false;
+  let lastClickTime = 0;
+
+  // ============ فتح/إغلاق لوحة التحكم ============
+  function openAdminPanel() {
+    const panel = document.getElementById('adminPanel');
+    if (!panel) return;
+    panel.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    isAdminAuthenticated = false;
+    document.getElementById('passwordSection').style.display = 'block';
+    document.getElementById('adminControls').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+
+    updateSystemInfo();
+  }
+
+  function closeAdminPanel() {
+    const panel = document.getElementById('adminPanel');
+    if (!panel) return;
+    panel.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  function refreshAdminData() {
+    loadRamadanOffers();
+    loadItemsForDelete();
+    updateSystemInfo();
+  }
+
+  // إغلاق عند الضغط خارج المربع
+  document.addEventListener('click', (event) => {
+    const panel = document.getElementById('adminPanel');
+    if (!panel) return;
+    if (panel.style.display === 'flex' && event.target === panel) {
+      closeAdminPanel();
+    }
+  });
+
+  // إغلاق عند ESC
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeAdminPanel();
+    }
+  });
+
+  // ============ التحقق من كلمة المرور ============
+  function checkPassword() {
+    const password = document.getElementById('adminPassword').value;
+    const status = document.getElementById('uploadStatus');
+
+    if (password === ADMIN_PASSWORD) {
+      isAdminAuthenticated = true;
+      document.getElementById('passwordSection').style.display = 'none';
+      document.getElementById('adminControls').style.display = 'block';
+      loadItemsForDelete();
+
+      status.innerHTML = `
+        <div style="color: green; background: rgba(46, 125, 50, 0.1); padding: 15px; border-radius: 10px;">
+          <i class="fas fa-check-circle" style="font-size: 22px; margin-bottom: 8px;"></i>
+          <p style="margin:0;font-weight:bold;">تم الدخول بنجاح إلى لوحة التحكم</p>
+        </div>
+      `;
+      setTimeout(() => { status.innerHTML = ''; }, 2500);
+    } else {
+      status.innerHTML = `
+        <div style="color:#ff4757;background:rgba(255,71,87,0.1);padding:15px;border-radius:10px;">
+          <i class="fas fa-exclamation-triangle" style="font-size:22px;margin-bottom:8px;"></i>
+          <p style="margin:0;font-weight:bold;">كلمة المرور غير صحيحة</p>
+          <p style="margin:5px 0 0;font-size:14px;">كلمة المرور الافتراضية: <strong>admin123</strong></p>
+        </div>
+      `;
+      setTimeout(() => { status.innerHTML = ''; }, 3000);
+    }
+  }
+
+  // ============ تحميل عروض رمضان للواجهة ============
+  async function loadRamadanOffers() {
+    const grid = document.getElementById('ramadanGrid');
+    const countSpan = document.getElementById('offersCount');
+    if (!grid) return;
+
+    grid.innerHTML = `
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p style="margin-top:15px;color:var(--text-light);">جاري تحميل العروض...</p>
+      </div>
+    `;
+
+    const { data, error } = await supabase
+      .from('Qasem')
+      .select('*')
+      .order('id', { ascending: false });
+
+    if (error) {
+      console.error(error);
+      grid.innerHTML = `
+        <p style="text-align:center;color:#ff4757;padding:30px;">
+          حدث خطأ أثناء تحميل العروض، يرجى المحاولة لاحقاً.
+        </p>
+      `;
+      if (countSpan) countSpan.textContent = '0';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      grid.innerHTML = `
+        <p style="text-align:center;color:var(--text-light);padding:30px;">
+          لا توجد عروض حالياً، سيتم إضافة العروض قريباً.
+        </p>
+      `;
+      if (countSpan) countSpan.textContent = '0';
+      return;
+    }
+
+    if (countSpan) countSpan.textContent = data.length;
+
+    grid.innerHTML = data.map((item) => `
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="${item.image_url}" alt="${item.title}">
+        </div>
+        <h4>${item.title}</h4>
+        <div class="card-price">${item.price}</div>
+      </div>
+    `).join('');
+  }
+
+  // ============ تحميل العروض في لوحة الحذف ============
+  async function loadItemsForDelete() {
+    const container = document.getElementById('deleteManager');
+    const adminCount = document.getElementById('offersCountAdmin');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div style="text-align:center;padding:30px;color:var(--text-light);grid-column:1/-1;">
+        <i class="fas fa-spinner fa-spin" style="font-size:24px;margin-bottom:15px;"></i>
+        <p>جاري تحميل العروض...</p>
+      </div>
+    `;
+
+    const { data, error } = await supabase
+  .from('Qasem')
+  .select('*')
+  .order('id', { ascending: false });
+
+    if (error) {
+      console.error(error);
+      container.innerHTML = `
+        <p style="grid-column:1/-1;text-align:center;color:#ff4757;padding:20px;">
+          حدث خطأ أثناء تحميل العروض.
+        </p>
+      `;
+      if (adminCount) adminCount.textContent = '0';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `
+        <p style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:20px;">
+          لا توجد عروض حالياً.
+        </p>
+      `;
+      if (adminCount) adminCount.textContent = '0';
+      return;
+    }
+
+    if (adminCount) adminCount.textContent = data.length;
+
+    container.innerHTML = data.map((item) => `
+      <div class="delete-item">
+        <img src="${item.image_url}" alt="${item.title}">
+        <div class="delete-item-title">${item.title}</div>
+        <button class="delete-btn" onclick="deleteOffer(${item.id}, '${encodeURIComponent(item.image_url)}')">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  // ============ رفع عرض جديد ============
+  async function handleAdminUpload() {
+    const file = document.getElementById('imageFile').files[0];
+    const title = document.getElementById('dbTitle').value.trim();
+    const price = document.getElementById('dbPrice').value.trim();
+    const status = document.getElementById('uploadStatus');
+
+    if (!isAdminAuthenticated) {
+      status.innerHTML = `
+        <div style="color:#ff4757;background:rgba(255,71,87,0.1);padding:15px;border-radius:10px;">
+          <p style="margin:0;font-weight:bold;">يجب تسجيل الدخول أولاً إلى لوحة التحكم</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (!file || !title || !price) {
+      status.innerHTML = `
+        <div style="color:#ff4757;background:rgba(255,71,87,0.08);padding:15px;border-radius:10px;">
+          <p style="margin:0;font-weight:bold;">الرجاء تعبئة جميع الحقول واختيار صورة للمنتج</p>
+        </div>
+      `;
+      return;
+    }
+
+    try {
+      status.innerHTML = `
+        <div style="color:#333;background:rgba(0,0,0,0.03);padding:15px;border-radius:10px;">
+          <i class="fas fa-spinner fa-spin" style="font-size:20px;margin-bottom:8px;"></i>
+          <p style="margin:0;font-weight:bold;">جاري رفع العرض، الرجاء الانتظار...</p>
+        </div>
+      `;
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `offers/${fileName}`;
+
+      // رفع الصورة إلى bucket ramadan-offers
+      const { data: uploadData, error: uploadError } = await supabase
+        .storage
+        .from('market')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        console.error(uploadError);
+        status.innerHTML = `
+          <div style="color:#ff4757;background:rgba(255,71,87,0.1);padding:15px;border-radius:10px;">
+            <p style="margin:0;font-weight:bold;">حدث خطأ أثناء رفع الصورة</p>
+          </div>
+        `;
+        return;
+      }
+
+      const { data: publicUrlData } = supabase
+        .storage
+        .from('market')
+        .getPublicUrl(filePath);
+
+      const image_url = publicUrlData.publicUrl;
+
+      const { data: insertData, error: insertError } = await supabase
+        .from('Qasem')
+        .insert({
+          title: title,
+          price: price,
+          image_url: image_url
+        })
+        select()
+        single();
+
+      if (insertError) {
+        console.error(insertError);
+        status.innerHTML = `
+          <div style="color:#ff4757;background:rgba(255,71,87,0.1);padding:15px;border-radius:10px;">
+            <p style="margin:0;font-weight:bold;">تم رفع الصورة لكن حدث خطأ في حفظ بيانات العرض</p>
+          </div>
+        `;
+        return;
+      }
+
+      status.innerHTML = `
+        <div style="color:green;background:rgba(46,125,50,0.1);padding:15px;border-radius:10px;">
+          <i class="fas fa-check-circle" style="font-size:22px;margin-bottom:8px;"></i>
+          <p style="margin:0;font-weight:bold;">تم إضافة العرض بنجاح 🎉</p>
+        </div>
+      `;
+
+      document.getElementById('imageFile').value = '';
+      document.getElementById('dbTitle').value = '';
+      document.getElementById('dbPrice').value = '';
+
+      await loadRamadanOffers();
+      await loadItemsForDelete();
+      updateSystemInfo();
+    } catch (err) {
+      console.error(err);
+      status.innerHTML = `
+        <div style="color:#ff4757;background:rgba(255,71,87,0.1);padding:15px;border-radius:10px;">
+          <p style="margin:0;font-weight:bold;">حدث خطأ غير متوقع أثناء عملية الرفع</p>
+        </div>
+      `;
+    }
+  }
+
+  // ============ حذف عرض ============
+  async function deleteOffer(id, encodedImageUrl) {
+    if (!confirm('هل أنت متأكد من حذف هذا العرض؟')) return;
+
+    const imageUrl = decodeURIComponent(encodedImageUrl);
+
+    const { error } = await supabase
+      .from('Qasem')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      alert('حدث خطأ أثناء الحذف من قاعدة البيانات');
+      console.error(error);
+      return;
+    }
+
+    try {
+      const parts = imageUrl.split('/storage/v1/object/public/ramadan-offers/');
+      if (parts.length === 2) {
+        const filePath = parts[1];
+        await supabase.storage.from('ramadan-offers').remove([filePath]);
+      }
+    } catch (e) {
+      console.warn('تعذر حذف الصورة من التخزين:', e);
+    }
+
+    await loadRamadanOffers();
+    await loadItemsForDelete();
+    updateSystemInfo();
+  }
+
+  // ============ معلومات النظام ============
+  async function updateSystemInfo() {
+    const sysDate = document.getElementById('sysDate');
+    const sysOffers = document.getElementById('sysOffers');
+    const now = new Date();
+    if (sysDate) sysDate.textContent = now.toLocaleString('ar-SA');
+
+    const { data, error } = await supabase
+      .from('Qasem')
+      .select('id');
+
+    const count = (!error && data) ? data.length : 0;
+    if (sysOffers) sysOffers.textContent = count;
+
+    const countSpan = document.getElementById('offersCount');
+    const adminCount = document.getElementById('offersCountAdmin');
+    if (countSpan) countSpan.textContent = count;
+    if (adminCount) adminCount.textContent = count;
+  }
+
+  // ============ تهيئة الأحداث بعد تحميل الصفحة ============
+  document.addEventListener('DOMContentLoaded', () => {
+    const logoElement = document.getElementById('mainLogo');
+    const floatingBtn = document.querySelector('.floating-admin-btn');
+
+    if (logoElement) {
+      logoElement.addEventListener('click', (event) => {
+        const currentTime = Date.now();
+        const diff = currentTime - lastClickTime;
+
+        if (diff < 400 && diff > 0) {
+          event.preventDefault();
+          const logoIcon = document.querySelector('.logo-icon');
+          if (logoIcon) {
+            logoIcon.classList.add('logo-click-effect');
+            setTimeout(() => logoIcon.classList.remove('logo-click-effect'), 400);
+          }
+          openAdminPanel();
+          lastClickTime = 0;
+        } else {
+          lastClickTime = currentTime;
+        }
+      });
+    }
+
+    if (floatingBtn) {
+      floatingBtn.addEventListener('click', () => openAdminPanel());
+    }
+
+    loadRamadanOffers();
+    updateSystemInfo();
+
+    // نموذج الطلب عبر واتساب
+    const orderForm = document.getElementById('safeerOrderForm');
+    if (orderForm) {
+      orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const details = document.getElementById('msgDetails').value.trim();
+        const address = document.getElementById('msgAddress').value.trim();
+        const phone = document.getElementById('msgPhone').value.trim();
+        const name  = document.getElementById('msgName').value.trim();
+
+        let message = `*طلب جديد من موقع بقالة السفير*%0A%0A`;
+        message += `*الطلبات:*%0A${encodeURIComponent(details)}%0A%0A`;
+        if (address) message += `*العنوان:* ${encodeURIComponent(address)}%0A`;
+        if (phone)   message += `*الجوال:* ${encodeURIComponent(phone)}%0A`;
+        if (name)    message += `*الاسم:* ${encodeURIComponent(name)}%0A`;
+
+        const whatsappNumber = '966550358482';
+        const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+        window.open(url, '_blank');
+      });
+    }
+  });
+
+  // جعل الدوال متاحة للأزرار ذات onclick في الـ HTML
+  window.openAdminPanel = openAdminPanel;
+  window.closeAdminPanel = closeAdminPanel;
+  window.checkPassword = checkPassword;
+  window.handleAdminUpload = handleAdminUpload;
+  window.refreshAdminData = refreshAdminData;
+  window.deleteOffer = deleteOffer;
+</script>
+</body>
+</html>
